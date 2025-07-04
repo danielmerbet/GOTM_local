@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../client/config.xsd">
+  <transports>
+    <transport type="sqlite"/>
+  </transports>
+  <executable path="/home/dmercado/Documents/gotm-lake/build/gotm"/>
+  <setup path="/home/dmercado/Documents/isi_cal/run"/>
+  <parameters>
+    <parameter file="gotm.yaml" variable="surface/meteo/swr/scale_factor" minimum="0.8" maximum="1.2"/>
+    <parameter file="gotm.yaml" variable="surface/meteo/u10/scale_factor" minimum="0.8" maximum="1.2"/>
+    <parameter file="gotm.yaml" variable="turbulence/turb_param/k_min" minimum="1e-9" maximum="1e-4" logscale="True"/>
+    <parameter file="gotm.yaml" variable="light_extinction/A/constant_value" minimum="0.2" maximum="0.8"/>
+    <parameter file="gotm.yaml" variable="light_extinction/g1/constant_value" minimum="0.1" maximum="1.5"/>
+    <parameter file="gotm.yaml" variable="light_extinction/g2/constant_value" minimum="1." maximum="15."/>
+  </parameters>
+  <observations>
+    <variable source="/home/dmercado/Documents/isi_cal/run/temp.obs" modelpath="output.nc" modelvariable="temp" spinupyears="5"/>
+  </observations>
+  <extra_outputs>
+    <statistic name="rmse" expression="sqrt(mean((y-x)**2))"/>
+  </extra_outputs>
+</config>
