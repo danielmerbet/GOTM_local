@@ -1,6 +1,7 @@
 library(ncdf4)
 library(reshape)
 library(dplyr)
+library(data.table)
 
 wd <- "~/Documents/isi_cal/"
 input <- "ISIMIP_Local_Lakes/LocalLakes"
@@ -14,7 +15,7 @@ setwd(wd)
 
 phase <- "isimip3b"
 
-for (escenario in c("historical", "picontrol","ssp126", "ssp370", "ssp585")){
+for (escenario in c("picontrol")){ #"historical", "ssp126", "ssp370", "ssp585"
   print(escenario)
   if (escenario=="historical"){
     years_range <- 1850:2014
@@ -28,7 +29,11 @@ for (escenario in c("historical", "picontrol","ssp126", "ssp370", "ssp585")){
     print(model)
     for (c in 1:73){
       # Load NetCDF file
-      ncfile <- nc_open(paste0("calibrated/run/",phase,"/", escenario, "/",model,"/out_",tolower(model),"_",escenario,"_", tolower(lakes[c]),"_",years_range[1],"_",years_range[length(years_range)],".nc"))
+      if (lakes[c] %in% c("Kivu", "Tahoe")){
+        next
+      }
+      
+      ncfile <- nc_open(paste0("uncalibrated/run/",phase,"/", escenario, "/",model,"/out_",tolower(model),"_",escenario,"_", tolower(lakes[c]),"_",years_range[1],"_",years_range[length(years_range)],".nc"))
       
       # Explore variable names
       #print(ncfile)
@@ -73,14 +78,18 @@ for (escenario in c("historical", "picontrol","ssp126", "ssp370", "ssp585")){
         mutate(depth_bin_df = floor(DEPTH_POS)) %>%
         group_by(Time, depth_bin_df) %>%
         summarise(mean_temp = mean(Temperature, na.rm = TRUE), .groups = "drop")
-      
+      beep()
       temp_df_binned$Time <- as.Date(temp_df_binned$Time)
       colnames(temp_df_binned) <- c("datetime", "depth", "wtemp")
       
       temp_df_binned <- temp_df_binned[temp_df_binned$datetime> as.Date(paste0(years_range[1],"-01-01")),]
       
-      write.csv(temp_df_binned, file = paste0("calibrated/raw_data/", escenario, "/", model, "/temp_",tolower(lakes[c]), ".csv"),
-                quote = F, row.names = F)
+      outfile <- paste0("uncalibrated/raw_data/", escenario, "/", model, "/temp_",tolower(lakes[c]), ".csv")
+      
+      fwrite(temp_df_binned, file = outfile, quote = FALSE, row.names = FALSE)
+      
+      #write.csv(temp_df_binned, file = outfile,
+      #          quote = F, row.names = F)
       ######################################################################
       ######################################################################
       #SENSIBLE HEAT
@@ -92,7 +101,7 @@ for (escenario in c("historical", "picontrol","ssp126", "ssp370", "ssp585")){
       qs_df <- qs_df[c("Time", "q_sens")]
       colnames(qs_df) <- c("datetime", "q_sens")
       qs_df <- qs_df[qs_df$datetime> as.Date(paste0(years_range[1],"-01-01")),]
-      write.csv(qs_df, file = paste0("calibrated/raw_data/", escenario, "/", model, "/qs_",tolower(lakes[c]), ".csv"),
+      write.csv(qs_df, file = paste0("uncalibrated/raw_data/", escenario, "/", model, "/qs_",tolower(lakes[c]), ".csv"),
                 quote = F, row.names = F)
       ######################################################################
       ######################################################################
@@ -105,7 +114,7 @@ for (escenario in c("historical", "picontrol","ssp126", "ssp370", "ssp585")){
       ql_df <- ql_df[c("Time", "q_lat")]
       colnames(ql_df) <- c("datetime", "q_lat")
       ql_df <- ql_df[ql_df$datetime> as.Date(paste0(years_range[1],"-01-01")),]
-      write.csv(ql_df, file = paste0("calibrated/raw_data/", escenario, "/", model, "/ql_",tolower(lakes[c]), ".csv"),
+      write.csv(ql_df, file = paste0("uncalibrated/raw_data/", escenario, "/", model, "/ql_",tolower(lakes[c]), ".csv"),
                 quote = F, row.names = F)
       ######################################################################
       ######################################################################
@@ -119,9 +128,10 @@ for (escenario in c("historical", "picontrol","ssp126", "ssp370", "ssp585")){
       colnames(ice_df) <- c("datetime", "ice_height")
       ice_df <- ice_df[ice_df$datetime> as.Date(paste0(years_range[1],"-01-01")),]
       
-      write.csv(ice_df, file = paste0("calibrated/raw_data/", escenario, "/", model, "/ice_",tolower(lakes[c]), ".csv"),
+      write.csv(ice_df, file = paste0("uncalibrated/raw_data/", escenario, "/", model, "/ice_",tolower(lakes[c]), ".csv"),
                 quote = F, row.names = F)
-                
+      
+      beep()          
       print(lakes[c])
     }
   }

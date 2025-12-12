@@ -50,7 +50,7 @@ for (c in 1:length(lakes)){
   #            quote = F, row.names = F, col.names = F)
   
   # Load NetCDF file
-  ncfile <- nc_open(paste0("calibrated/run/", escenario,"/out_",tolower(model),"_",escenario,"_", tolower(lakes[c]),"_",years_range[1],"_",years_range[length(years_range)],".nc"))
+  ncfile <- nc_open(paste0("calibrated/run/", escenario,"/",model,"/out_",tolower(model),"_",escenario,"_", tolower(lakes[c]),"_",years_range[1],"_",years_range[length(years_range)],".nc"))
   
   # Explore variable names
   print(ncfile)

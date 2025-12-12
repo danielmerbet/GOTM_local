@@ -141,7 +141,7 @@ phase <- "isimip3a"
 
 escenario <- "historical"
 #model <- #"GSWP3-W5E5"
-for (model in c("20CRv3-ERA5", "20CRv3-W5E5")){ #"20CRv3", "GSWP3-W5E5"
+for (model in c("20CRv3-ERA5", "GSWP3-W5E5")){ #"20CRv3", "GSWP3-W5E5"
   if (model=="GSWP3-W5E5"){years_range <- 1901:2019}
   if (model=="20CRv3"){years_range <- 1901:2015}
   if (model=="20CRv3-ERA5"){years_range <- 1901:2021}
