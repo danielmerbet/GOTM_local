@@ -1,5 +1,3 @@
----
-
 # GOTM Local Lakes ISIMIP Simulations
 
 **This repository contains 1D hydrodynamic simulations of local lakes using the General Ocean Turbulence Model (GOTM) as part of the ISIMIP framework.**
