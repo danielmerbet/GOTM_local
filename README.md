@@ -32,7 +32,7 @@ The simulations include:
 To run and analyse the simulations, you’ll need:
 
 * **GOTM (General Ocean Turbulence Model)** — source code or compiled binary
-  Download/build from: [https://gotm.net/](https://gotm.net/) ([isimip.pik-potsdam.de][2])
+  Download/build from: [https://gotm.net/](https://gotm.net/)
 * **Python or R** environment (for plots & diagnostics)
 
   * Python: `xarray`, `matplotlib`, `netCDF4`
@@ -106,6 +106,5 @@ This project is released under the **MIT License**.
 ---
 
 [1]: https://www.isimip.org/impactmodels/details/242/?
-[2]: https://isimip.pik-potsdam.de/impactmodels/details/205/
-[3]: https://gmd.copernicus.org/articles/15/4597/2022/gmd-15-4597-2022.html
-[4]: https://gotm.net/
+[2]: https://gmd.copernicus.org/articles/15/4597/2022/gmd-15-4597-2022.html
+[3]: https://gotm.net/
