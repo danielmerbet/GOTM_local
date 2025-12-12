@@ -101,7 +101,7 @@ The resulting metrics can be found in file GOTM_MLE_performance.csv
 
 ## 📄 License
 
-This project is released under the **MIT License**.
+This project is released under the **CC BY 4.0*.
 
 ---
 
