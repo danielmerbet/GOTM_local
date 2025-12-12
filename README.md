@@ -94,7 +94,7 @@ The resulting metrics can be found in file GOTM_MLE_performance.csv
 
 ## 📎 References & Further Reading
 
-* **ISIMIP Lake Sector** — a framework for impact modelling of lakes: [https://www.isimip.org/isimip-lake/](https://www.isimip.org/isimip-lake/) ([gmd.copernicus.org][2])
+* **ISIMIP Lake Sector** — a framework for impact modelling of lakes: ([gmd.copernicus.org][2])
 * **GOTM Model Description** — turbulence model adapted for lake simulations.([gotm.net][3])
 
 ---
